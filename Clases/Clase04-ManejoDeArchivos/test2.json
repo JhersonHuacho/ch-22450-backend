@@ -1,0 +1,14 @@
+[
+  {
+    "producto": "Cable",
+    "price": 200
+  },
+  {
+    "producto": "Celular",
+    "price": 500
+  },
+  {
+    "producto": "Cargador",
+    "price": 300
+  }
+]
