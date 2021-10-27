@@ -1,0 +1,20 @@
+[
+  {
+    "title": "erere",
+    "price": "10",
+    "thumbnail": "eer",
+    "id": 1
+  },
+  {
+    "title": "Mouse",
+    "price": 49,
+    "thumbnail": "https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-256.png",
+    "id": 2
+  },
+  {
+    "title": "laptop",
+    "price": "50",
+    "thumbnail": "http://localhost:8080/static/",
+    "id": 3
+  }
+]
