@@ -105,3 +105,66 @@ img {
     width: 30px;
 }
 
+.mensajes {
+    margin-bottom: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    background-color: #e1d6d6;
+    padding: 10px;
+}
+
+.mensajes h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.mensajes .mensaje-validacion {
+    color: red;
+}
+
+.block {
+    display: inline-block;
+}
+
+.none {
+    display: none;
+}
+
+.mensajes .input-correo {
+    margin-bottom: 10px;
+    width: 200px;
+}
+
+.mensajes .content-mensajes {
+    margin-top: 10px;
+}
+
+.mensajes .formulario-chat {
+    margin-top: 20px;
+    margin-left: 0;
+}
+
+.formulario-chat input[type="submit"] {
+    background-color: aqua;
+    padding: 5px 15px;
+    border: 1px solid aqua;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

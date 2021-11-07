@@ -1,2 +1,15 @@
 {{> saveProduct}}
 {{> listProducts listExists=listExists data=data}}
+
+<section class="mensajes">
+    <h3>Centro de Mensajes </h3>
+    <input type="email" class="input-correo" />
+    <span class="mensaje-validacion none">* Debe ingresar un Email</span>
+    <hr>
+    <div class="content-mensajes">
+    </div>
+    <form class="formulario-chat">
+        <input type="text" placeholder="Ingresá un mensaje..." class="input-chat" />
+        <input type="submit" value="Enviar!" class="submit-chat" />
+    </form>
+</section>
