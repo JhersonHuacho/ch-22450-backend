@@ -1,0 +1,107 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f46b95;
+}
+
+.content {
+    margin: 50px auto auto auto;
+    width: 500px;
+    background-color: #262e5d;
+    border-radius: 10px;
+}
+.content h1 {
+    text-align: center;
+    margin: 0;
+    padding-top: 40px;
+    padding-bottom: 20px;
+    color: #f46b95;
+}
+form {
+    width: 80%;
+    margin: 0 auto;
+}
+
+form .input {
+    display: flex;
+    flex-direction: column;
+}
+
+form > div {
+    margin-bottom: 20px;
+}
+form label {
+    width: 150px;
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+}
+
+.content-button {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    text-align: left;
+}
+
+button {
+    padding: 10px 30px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #f46b95;
+    color: white;
+    border: 0;
+}
+button:hover {
+    cursor: pointer;
+}
+input {
+    padding: 5px;
+}
+
+.lista-productos {
+    width: 80%;
+    margin: 50px auto;
+}
+
+.lista-productos h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #262e5d;
+}
+
+.content-table span {
+    font-size: 24px;
+    font-weight: bold;
+    background-color: bisque;
+    padding: 20px;
+    display: block;
+    text-align: center;
+}
+
+table {
+    /* table-layout: fixed; */
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid grey;
+    background-color: #262e5d;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+table thead th,
+table tbody td {
+    padding: 12px 15px;
+}
+table tr {
+    border-bottom: 1px solid grey;
+}
+
+img {
+    width: 30px;
+}
+
