@@ -34,5 +34,11 @@
     "price": "1000",
     "thumbnail": "https://cdn0.iconfinder.com/data/icons/devices-42/1600/Watch_2-256.png",
     "id": 6
+  },
+  {
+    "title": "producto",
+    "price": "33993",
+    "thumbnail": "https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-128.png",
+    "id": 7
   }
 ]

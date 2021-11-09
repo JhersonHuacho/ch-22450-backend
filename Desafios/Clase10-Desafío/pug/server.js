@@ -29,7 +29,8 @@ app.get('/', (req, res) => {
 app.post('/productos', async (req, res) => {
     const product = req.body;
     const productPerson = await objProducts.save(product);
-    res.render('index.pug', { data: productPerson });
+    // res.render('index.pug', { data: productPerson });
+    res.redirect("/");
 });
 
 app.get('/productos', async (req, res) => {

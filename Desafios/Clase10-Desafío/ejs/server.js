@@ -43,7 +43,8 @@ app.get('/productos', async (req, res) => {
 app.post('/productos', async (req, res) => {
     const product = req.body;
     const productPerson = await objProducts.save(product);
-    res.render('pages/index', {data: productPerson });
+    // res.render('pages/index', {data: productPerson });
+    res.redirect("/");
 });
 
 // listen
