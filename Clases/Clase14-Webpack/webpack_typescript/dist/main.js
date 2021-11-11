@@ -1,0 +1,1 @@
+(()=>{"use strict";var r={860:r=>{r.exports=require("express")}},e={};(function o(s){var t=e[s];if(void 0!==t)return t.exports;var n=e[s]={exports:{}};return r[s](n,n.exports,o),n.exports})(860)().listen(8081,(function(){console.log("server ok!!")}))})();
