@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "timestamp": "hola",
+    "nombre": "calculadora",
+    "descripcion": "",
+    "codigo": "",
+    "url": "",
+    "precio": 500,
+    "stock": 20   
+  }
+]

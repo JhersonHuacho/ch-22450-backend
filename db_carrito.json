@@ -1,0 +1,30 @@
+[
+  {
+    "carrito": {
+      "id": 20,
+      "timestamp": "",
+      "producto": [
+        {
+          "id": 20,
+          "timestamp": "hola",
+          "nombre": "calculadora",
+          "descripcion": "",
+          "codigo": "",
+          "url": "",
+          "precio": 500,
+          "stock": 20
+        },
+        {
+          "id": 20,
+          "timestamp": "hola",
+          "nombre": "calculadora",
+          "descripcion": "",
+          "codigo": "",
+          "url": "",
+          "precio": 500,
+          "stock": 20
+        }
+      ]
+    }
+  }
+]
