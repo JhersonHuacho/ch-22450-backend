@@ -1,1 +1,0 @@
-(()=>{var o={395:o=>{o.exports={suma:(o,r)=>o+r,resta:(o,r)=>o-r}}},r={};function s(e){var t=r[e];if(void 0!==t)return t.exports;var a=r[e]={exports:{}};return o[e](a,a.exports,s),a.exports}(()=>{const o=s(395);console.log(o.suma(10,56)),console.log(o.resta(56,10))})()})();

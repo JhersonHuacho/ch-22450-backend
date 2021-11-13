@@ -1,1 +1,0 @@
-  * We need to use fs.stat() or fs.access() because fs.exists(path, callback) now is deprecated
