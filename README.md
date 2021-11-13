@@ -1,5 +1,5 @@
 # Full Stack
-Francisco Huacho
+Francisco Jherson Huacho Inga
 
 ## Recursos utilizados para el desarrollo de los desafíos
 ### Clase 10 - Desafío
