@@ -1,10 +1,68 @@
 [
   {
-    "carrito": [
+    "carritos": [
       {
         "id": 1,
         "timestamp": "",
-        "producto": [
+        "productos": [
+          {
+            "id": 1,
+            "timestamp": "hola",
+            "nombre": "calculadora",
+            "descripcion": "",
+            "codigo": "",
+            "url": "",
+            "precio": 500,
+            "stock": 20
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "timestamp": "",
+        "productos": [
+          {
+            "id": 1,
+            "timestamp": "hola",
+            "nombre": "calculadora",
+            "descripcion": "",
+            "codigo": "",
+            "url": "",
+            "precio": 500,
+            "stock": 20
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "productos": [
+      {
+        "id": 2,
+        "timestamp": "hola",
+        "nombre": "calculadora",
+        "descripcion": "",
+        "codigo": "",
+        "url": "",
+        "precio": 500,
+        "stock": 20
+      },
+      {
+        "id": 3,
+        "timestamp": "hola",
+        "nombre": "calculadora",
+        "descripcion": "",
+        "codigo": "",
+        "url": "",
+        "precio": 500,
+        "stock": 20
+      }
+    ],
+    "carritos": [
+      {
+        "id": 1,
+        "timestamp": "",
+        "productos": [
           {
             "id": 20,
             "timestamp": "hola",
@@ -30,7 +88,7 @@
       {
         "id": 2,
         "timestamp": "",
-        "producto": [
+        "productos": [
           {
             "id": 20,
             "timestamp": "hola",
@@ -42,40 +100,11 @@
             "stock": 20
           }
         ]
-      }
-    ]
-  },
-  {
-    "productos": [
-      {
-        "id": 1,
-        "timestamp": "hola",
-        "nombre": "calculadora",
-        "descripcion": "",
-        "codigo": "",
-        "url": "",
-        "precio": 500,
-        "stock": 20
-      },
-      {
-        "id": 2,
-        "timestamp": "hola",
-        "nombre": "calculadora",
-        "descripcion": "",
-        "codigo": "",
-        "url": "",
-        "precio": 500,
-        "stock": 20
       },
       {
         "id": 3,
-        "timestamp": "hola",
-        "nombre": "calculadora",
-        "descripcion": "",
-        "codigo": "",
-        "url": "",
-        "precio": 500,
-        "stock": 20
+        "timestamp": "1636866057069",
+        "productos": []
       }
     ]
   }

@@ -1,5 +1,5 @@
-const fs = require('fs');
-
+// const fs = require('fs');
+import fs from 'fs';
 interface Product {
   id: number,
   timestamp: string,
@@ -11,7 +11,7 @@ interface Product {
   stock: number
 }
 
-class Contenedor {
+class ContenedorProducto {
   private nombreArchivo: string;
 
   private listProducts: Product[];
@@ -71,11 +71,18 @@ class Contenedor {
     return product;
   }
 
-  async save(producto: Product): Promise<Product | null> {
+  async save(paramProducto: Product): Promise<Product | null> {
     try {
       const filePath = `./${this.nombreArchivo}.json`;  
       const fileExists = await fs.promises.stat(filePath).then(() => true).catch(() => false);
+      
+      const tiempoTranscurrido = Date.now();
+      const hoy = new Date(tiempoTranscurrido);
+
       let productos: Product[] = [];
+      const producto: Product = {...paramProducto}
+      
+      producto.timestamp = hoy.toLocaleString();
 
       if (fileExists) {
         const contentFile = await fs.promises.readFile(filePath, {encoding: "utf-8"});
@@ -101,6 +108,7 @@ class Contenedor {
         producto.id = 1;
         const arrayProductos = [
           {
+            carritos: [],
             productos: [
               producto
             ]
@@ -122,6 +130,77 @@ class Contenedor {
     }
   }
 
+  async updateById(productParam: Product, productParamId: number): Promise<Product | null> {
+    try {
+      const filePath = `./${this.nombreArchivo}.json`;  
+      const fileExists = await fs.promises.stat(filePath).then(() => true).catch(() => false);
+
+      if (!fileExists) {
+        console.log("El archivo no existe");
+        return new Promise((resolve) => {
+          resolve(null);
+        });
+      }
+
+      const contentFile = await fs.promises.readFile(filePath, {encoding: "utf-8"});
+      const productosCarritos = JSON.parse(contentFile);
+      const productos: Product[] = productosCarritos[1].productos;
+
+      console.log("productos", productos);
+      // console.log("productParam", productParam);
+      const newProducts = productos.map((product: Product) => {
+        return product.id === productParamId 
+          ? {
+            id: productParamId === undefined ? product.id : productParamId,
+            timestamp: productParam.timestamp === undefined ? product.timestamp : productParam.timestamp,
+            nombre: productParam.nombre === undefined ? product.nombre : productParam.nombre,
+            descripcion: productParam.descripcion === undefined ? product.descripcion : productParam.descripcion,
+            codigo: productParam.codigo === undefined ? product.codigo : productParam.codigo,
+            url: productParam.url === undefined ? product.url : productParam.url,
+            precio: productParam.precio === undefined ? product.precio : productParam.precio,
+            stock: productParam.stock === undefined ? product.stock : productParam.stock,
+          } 
+          : product;
+      });
+      // console.log("newProducts", newProducts);
+      productosCarritos[1].productos = newProducts;
+      fs.promises.writeFile(filePath, JSON.stringify(productosCarritos, null, 2), {encoding: "utf-8"});
+      return productParam;
+      
+    } catch (error) {
+      console.log(error);
+      return new Promise((resolve) => {
+        resolve(null);
+      });
+    }
+  }
+
+  async deleteById(productId: number): Promise<Boolean> {
+    try {
+      const filePath = `./${this.nombreArchivo}.json`;  
+      const fileExists = await fs.promises.stat(filePath).then(() => true).catch(() => false);
+      
+      if (!fileExists) {
+        console.log("El archivo no existe");
+        return false;
+      }
+
+      const contentFile = await fs.promises.readFile(filePath, {encoding: "utf-8"});
+      const productosCarritos = JSON.parse(contentFile);
+      const productos = productosCarritos[1].productos;
+      const newProducts = productos.filter((product: Product) => product.id !== productId);
+
+      productosCarritos[1].productos = newProducts;
+      fs.promises.writeFile(filePath, JSON.stringify(productosCarritos, null, 2), {encoding: "utf-8"});
+      console.log(`deleteById() => se elimino el producto con el  ID ${productId} correctamente`);
+      return true;
+
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
+
 }
 
-export default Contenedor;
+export default ContenedorProducto;

@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import Contenedor from '../utilitario/contenedor';
+import ContenedorProducto from '../utilitario/Producto';
 // const Contenedor = require('../utilitario/fileSystem.ts');
 
 const router = Router();
-const objProducts = new Contenedor('db');
+const objProducts = new ContenedorProducto('db');
 
 router.get('/:id?', async (req, res) => {
   const id: number = req.params.id === undefined ? -1 : parseInt(req.params.id);
@@ -26,7 +26,7 @@ router.get('/:id?', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  console.log('req.body', req.body);
+  // console.log('req.body', req.body);
   const product = await objProducts.save(req.body);
   res.json({
     message: 'post => Acceso administrador',
@@ -34,15 +34,32 @@ router.post('/', async (req, res) => {
   });
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', async (req, res) => {
+  const id = req.params.id === undefined ? -1 : parseInt(req.params.id);
+  const body = req.body;
+  const newProduct = await objProducts.updateById(body, id);
+
   res.json({
     message: 'put => Acceso administrador',
+    data: newProduct
   });
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
+  const id = req.params.id === undefined ? -1 : parseInt(req.params.id);
+  const isOk = await objProducts.deleteById(id);
+
+  if (isOk) {
+    res.json({
+      message: 'delete => Acceso administrador',
+      data: {},
+      status: 'OK'
+    });
+  }
   res.json({
     message: 'delete => Acceso administrador',
+    data: {},
+    status: 'ERROR'
   });
 });
 
