@@ -140,7 +140,7 @@ router.delete('/:id', async (req: Request, res: Response) => {
   } else {
     res.json({
       error: -1,
-      descripcion: 'ruta /:id método "DELETE" no autorizada'
+      descripcion: 'ruta /:id método "DELETE" no autorizada.'
     });
   }
 });

@@ -145,9 +145,10 @@ class ContenedorCarrito {
           listaProductosCarritos = JSON.parse(contentFile);
           carritos = listaProductosCarritos[0].carritos;
           carrito.id = carritos.length + 1;
-          this.listCarritos = carritos;
-          this.listCarritos.push(carrito);
-          listaProductosCarritos[1].carritos = this.listCarritos;
+          // this.listCarritos = carritos;
+          // this.listCarritos.push(carrito);
+          carritos.push(carrito);
+          listaProductosCarritos[0].carritos = carritos;
 
           const data = JSON.stringify(listaProductosCarritos, null, 2);
           await fs.promises.writeFile(filePath, data, { encoding: "utf-8" });
@@ -261,6 +262,15 @@ class ContenedorCarrito {
       const contentFile = await fs.promises.readFile(filePath, { encoding: "utf-8" });
       const listaCarritosProductos = JSON.parse(contentFile);
       const carritos = listaCarritosProductos[0].carritos;
+      const carrito = carritos.find((carrito: Carrito) => carrito.id === paramCarritoId);
+
+      if (carrito === undefined || carrito === null) {
+        return {
+          status: -1,
+          message: `El carrito con ID ${paramCarritoId} no existe.`
+        };
+      }
+
       const newCarritos = carritos.filter((carrito: Carrito) => carrito.id !== paramCarritoId);
 
       listaCarritosProductos[0].carritos = newCarritos;
@@ -297,6 +307,14 @@ class ContenedorCarrito {
       const listaCarritosProductos = JSON.parse(contentFile);
       const carritos = listaCarritosProductos[0].carritos;
       const carrito = carritos.find((carrito: Carrito) => carrito.id === paramCarritoId);
+
+      if (carrito === undefined || carrito === null) {
+        return {
+          status: -1,
+          message: `El carrito con ID ${paramCarritoId} no existe.`
+        };
+      }
+
       const productos = carrito.productos;
       const newProductos = productos.filter((producto: Product) => producto.id !== paramProductoId);
 
