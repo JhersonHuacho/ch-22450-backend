@@ -8,59 +8,104 @@ const objProducts = new ContenedorProducto('db');
 router.get('/:id?', async (req, res) => {
   const id: number = req.params.id === undefined ? -1 : parseInt(req.params.id);
   // console.log('params', req.params);
-  console.log('params id', id);
+  // console.log('params id', id);
   if (id === -1) {
-    const products = await objProducts.getAll();
+    const response = await objProducts.getAll();
 
-    res.json({
-      message: 'get => Acceso usuario y administrador',
-      data: products,
-    });
+    if (response.status === 1) {
+      res.json({
+        message: response.message,
+        data: response.dataProducts,
+        status: 'OK'
+      });
+    } else {
+      res.json({
+        message: response.message,
+        data: [],
+        status: response.status === -1 ? 'Validación' : 'ERROR'
+      });
+    }
+
+  } else {
+
+    const response = await objProducts.getById(id);
+
+    if (response.status === 1) {
+      res.json({
+        message: response.message,
+        data: response.dataProduct,
+        status: 'OK'
+      });
+    } else {
+      res.json({
+        message: response.message,
+        data: [],
+        status: response.status === -1 ? 'Validación' : 'ERROR'
+      });
+    }
   }
-
-  const product = await objProducts.getById(id);
-  res.json({
-    data: product,
-    message: 'get id => Acceso usuario y administrador',
-  });
+  
 });
 
 router.post('/', async (req, res) => {
   // console.log('req.body', req.body);
-  const product = await objProducts.save(req.body);
-  res.json({
-    message: 'post => Acceso administrador',
-    data: product
-  });
+  const response = await objProducts.save(req.body);
+
+  if (response.status === 1) {
+    res.json({
+      message: response.message,
+      data: response.dataProduct,
+      status: 'OK'
+    });
+  } else {
+    res.json({
+      message: response.message,
+      data: [],
+      status: response.status === -1 ? 'Validación' : 'ERROR'
+    });
+  }
+  
 });
 
 router.put('/:id', async (req, res) => {
   const id = req.params.id === undefined ? -1 : parseInt(req.params.id);
   const body = req.body;
-  const newProduct = await objProducts.updateById(body, id);
+  const response = await objProducts.updateById(body, id);
 
-  res.json({
-    message: 'put => Acceso administrador',
-    data: newProduct
-  });
+  if (response.status === 1) {
+    res.json({
+      message: 'put => Acceso administrador',
+      data: response.dataProduct,
+      status: 'OK'
+    });
+  } else {
+    res.json({
+      message: 'put => Acceso administrador',
+      data: [],
+      status: 'ERROR'
+    });
+  }
+  
 });
 
 router.delete('/:id', async (req, res) => {
   const id = req.params.id === undefined ? -1 : parseInt(req.params.id);
-  const isOk = await objProducts.deleteById(id);
+  const response = await objProducts.deleteById(id);
 
-  if (isOk) {
+  if (response.status === 1) {
     res.json({
-      message: 'delete => Acceso administrador',
+      message: response.message,
       data: {},
       status: 'OK'
     });
+  } else {
+    res.json({
+      message: response.message,
+      data: {},
+      status: 'ERROR'
+    });
   }
-  res.json({
-    message: 'delete => Acceso administrador',
-    data: {},
-    status: 'ERROR'
-  });
+  
 });
 
 export default router;

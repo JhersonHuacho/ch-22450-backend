@@ -1,5 +1,7 @@
-# Full Stack
-Francisco Huacho
+## Recursos utilizados para el desarrollo del primer entregable
+
+Como usar Typescript con NodeJS:
+https://www.section.io/engineering-education/how-to-use-typescript-with-nodejs/
 
 ## Recursos utilizados para el desarrollo de los desafíos
 ### Clase 10 - Desafío

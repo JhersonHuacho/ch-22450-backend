@@ -3,54 +3,83 @@ import ContenedorCarrito from '../utilitario/Carrito';
 const router = Router();
 const objCarrito = new ContenedorCarrito('db');
 
+
 router.get('/:id/productos', async (req, res) => {
   const id = req.params.id === undefined ? -1 : parseInt(req.params.id);
-  const listProductos = await objCarrito.getProductosPorCarrito(id);
+  const response = await objCarrito.getProductosPorCarrito(id);
 
-  res.json({
-    message: 'Me permite listar todos los productos guardados en el carrito',
-    data: listProductos,
-    status: 'OK'
-  });
+  if (response.status === 1) {
+    res.json({
+      message: response.message,
+      data: response.dataProducts,
+      status: 'OK'
+    });
+  } else  {
+    res.json({
+      message: response.message,
+      data: [],
+      status: response.status === -1 ? 'Validación' : 'ERROR'
+    });
+  }
 });
 
 router.post('/', async (req, res) => {
-  const idCarrito = await objCarrito.saveCarrito();
+  const response = await objCarrito.saveCarrito();
 
-  res.json({
-    message: 'Crea un carrito y devuelve su id',
-    data: {
-      idCarrito: idCarrito
-    },
-    status: 'OK'
-  });
+  if (response.status === 1)
+  {
+    res.json({
+      message: response.message,
+      data: {
+        idCarrito: response.dataCarritoId
+      },
+      status: 'OK'
+    });
+  } else {
+    res.json({
+      message: response.message,
+      data: {
+        idCarrito: response.dataCarritoId
+      },
+      status: 'OK'
+    });
+  }
+  
 });
 
 router.post('/:id/productos', async (req, res) => {
   const idCarrito = req.params.id === undefined ? -1 : parseInt(req.params.id);
-  const product = await objCarrito.saveProductoAlCarrito(idCarrito, req.body);
+  const response = await objCarrito.saveProductoAlCarrito(idCarrito, req.body);
 
-  res.json({
-    message: 'Para incorporar productos al carrito por su id de producto',
-    data: product,
-    status: 'OK'
-  });
+  if (response.status === 1) {
+    res.json({
+      message: response.message,
+      data: response.dataProduct,
+      status: 'OK'
+    });
+  } else {
+    res.json({
+      message: response.message,
+      data: [],
+      status: 'ERROR'
+    });
+  }
 });
 
 router.delete('/:id', async (req, res) => {
   const idCarrito = req.params.id === undefined ? -1 : parseInt(req.params.id);
 
-  const status = await objCarrito.deleteCarritoPorId(idCarrito);
+  const response = await objCarrito.deleteCarritoPorId(idCarrito);
 
-  if (status) {
+  if (response.status === 1) {
     res.json({
-        message: 'Elimina un producto del carrito por su id de carrito y de producto',
+        message: response.message,
         data: [],
         status: 'OK'
     });
   } else {
     res.json({
-      message: 'Elimina un producto del carrito por su id de carrito y de producto',
+      message: response.message,
       data: [],
       status: 'ERROR'
     });
@@ -61,17 +90,17 @@ router.delete('/:id', async (req, res) => {
 router.delete('/:id/productos/:id_prod', async (req, res) => {
   const idCarrito = req.params.id === undefined ? -1 : parseInt(req.params.id);
   const idProducto = req.params.id_prod === undefined ? -1 : parseInt(req.params.id_prod);
-  const status = await objCarrito.deleteProductoDelCarrito(idCarrito, idProducto);
+  const response = await objCarrito.deleteProductoDelCarrito(idCarrito, idProducto);
 
-  if (status) {
+  if (response.status === 1) {
     res.json({
-      message: 'Elimina un producto del carrito por su id de carrito y de producto',
+      message: response.message,
       data: [],
       status: 'OK'
     });
   } else {
     res.json({
-      message: 'Elimina un producto del carrito por su id de carrito y de producto',
+      message: response.message,
       data: [],
       status: 'ERROR'
     });

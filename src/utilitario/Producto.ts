@@ -11,6 +11,13 @@ interface Product {
   stock: number
 }
 
+interface ResponseProducto {
+  status: number,
+  message: string,
+  dataProduct?: Product,
+  dataProducts?: Product[]
+}
+
 class ContenedorProducto {
   private nombreArchivo: string;
 
@@ -21,43 +28,54 @@ class ContenedorProducto {
     this.listProducts = [];
   }
 
-  getProductos(): string {
-    return this.nombreArchivo;
-  }
-
-  async getAll(): Promise<Product[]> {
+  async getAll(): Promise<ResponseProducto> {
     try {
       const filePath = `./${this.nombreArchivo}.json`;
       const fileExists = await fs.promises.stat(filePath).then(() => true).catch(() => false);
 
       if (!fileExists) {
-        console.log('El archivo no existe');
         return new Promise((resolve) => {
-          resolve([]);
+          resolve({
+            status: -1,
+            message: 'El arcchivo json no existes'
+          });
         });
       }
 
       const contentFile = await fs.promises.readFile(filePath, { encoding: 'utf-8' });
       let products = [];
-      // console.log('contentFile', contentFile);
+      console.log('contentFile', contentFile);
       if (contentFile === '') {
         console.log('getAll() => No hay datos para mostrar');
+        return new Promise((resolve) => {
+          resolve({
+            status: -1,
+            message: 'El archivo json existe, pero no tiene ningun registro.'
+          });
+        });
       } else {
         products = JSON.parse(contentFile);
         // console.log("getAll() => Mostrar todos los productos :\n" ,products);
       }
       // console.log('products', products);
-      console.log('products[1]', products[1]);
-      return products[1];
+      // console.log('products[1]', products[1]);
+      return {
+        status: 1,
+        message: 'Se obtuvo los productos correctamente',
+        dataProducts: products[1]
+      }
     } catch (error) {
       console.log(error);
       return new Promise((resolve) => {
-        resolve([]);
+        resolve({
+          status: -2,
+          message: 'Hubo un error al obtener los productos.'
+        });
       });
     }
   }
 
-  async getById(productId: number): Promise<Product | undefined> {
+  async getById(productId: number): Promise<ResponseProducto> {
     const filePath = `./${this.nombreArchivo}.json`;
     const contentFile = await fs.promises.readFile(filePath, {encoding: "utf-8"});
     const products = JSON.parse(contentFile);
@@ -68,10 +86,14 @@ class ContenedorProducto {
 
     const product = this.listProducts.find(product => product.id === productId);
     // console.log(`product`, product)
-    return product;
+    return {
+      status: 1,
+      message: 'Se obtuvo el producto correctamente.',
+      dataProduct: product
+    };
   }
 
-  async save(paramProducto: Product): Promise<Product | null> {
+  async save(paramProducto: Product): Promise<ResponseProducto> {
     try {
       const filePath = `./${this.nombreArchivo}.json`;  
       const fileExists = await fs.promises.stat(filePath).then(() => true).catch(() => false);
@@ -80,7 +102,7 @@ class ContenedorProducto {
       const hoy = new Date(tiempoTranscurrido);
 
       let productos: Product[] = [];
-      const producto: Product = {...paramProducto}
+      const producto: Product = {...paramProducto};
       
       producto.timestamp = hoy.toLocaleString();
 
@@ -89,26 +111,40 @@ class ContenedorProducto {
         let productosCarritos = [];
 
         if (contentFile === "") {
-          console.log("contentFile", contentFile);
           producto.id = 1;
+          const arrayProductos = [
+            {
+              carritos: []
+            },
+            {
+              productos: [
+                producto
+              ]
+            }
+          ];
+          const data = JSON.stringify(arrayProductos, null, 2);
+          await fs.promises.writeFile(filePath, data, {encoding: "utf-8"});
+          console.log("save() => El producto se guardo correctamente. Id ==> " + producto.id);
+
         } else {
           productosCarritos = JSON.parse(contentFile);
           productos = productosCarritos[1].productos;
           producto.id = productos.length + 1;
+
+          productos.push(producto);
+          productosCarritos[1].productos = productos;
+
+          const data = JSON.stringify(productosCarritos, null, 2);
+          await fs.promises.writeFile(filePath, data, {encoding: "utf-8"});
+          console.log("save() => El producto se guardo correctamente. Id ==> " + producto.id);
         }
-
-        this.listProducts = productos;
-        this.listProducts.push(producto);
-        productosCarritos[1].productos = this.listProducts;
-
-        const data = JSON.stringify(productosCarritos, null, 2);
-        await fs.promises.writeFile(filePath, data, {encoding: "utf-8"});
-        console.log("save() => El producto se guardo correctamente. Id ==> " + producto.id);
       } else {
         producto.id = 1;
         const arrayProductos = [
           {
-            carritos: [],
+            carritos: []
+          },
+          {
             productos: [
               producto
             ]
@@ -120,17 +156,25 @@ class ContenedorProducto {
         await fs.promises.writeFile(filePath, data, {encoding: "utf-8"});
         console.log("save() => El producto se guardo correctamente. Id ==> " + producto.id);
       }
-      return producto;
+
+      return {
+        status: 1,
+        message: 'Se guardo el producto correctamente.',
+        dataProduct: producto
+      }
 
     } catch (error) {
       console.log(error);
       return new Promise((resolve) => {
-        resolve(null);
+        resolve({
+          status: -2,
+          message: 'Hubo un error al guardar el producto.'
+        });
       });
     }
   }
 
-  async updateById(productParam: Product, productParamId: number): Promise<Product | null> {
+  async updateById(productParam: Product, productParamId: number): Promise<ResponseProducto> {
     try {
       const filePath = `./${this.nombreArchivo}.json`;  
       const fileExists = await fs.promises.stat(filePath).then(() => true).catch(() => false);
@@ -138,7 +182,10 @@ class ContenedorProducto {
       if (!fileExists) {
         console.log("El archivo no existe");
         return new Promise((resolve) => {
-          resolve(null);
+          resolve({
+            status: -1,
+            message: 'El archivo JSON no existe'
+          });
         });
       }
 
@@ -165,24 +212,35 @@ class ContenedorProducto {
       // console.log("newProducts", newProducts);
       productosCarritos[1].productos = newProducts;
       fs.promises.writeFile(filePath, JSON.stringify(productosCarritos, null, 2), {encoding: "utf-8"});
-      return productParam;
+      
+      return {
+        status: 1,
+        message: 'El producto se actualizó correctamente.',
+        dataProduct: productParam
+      }
       
     } catch (error) {
       console.log(error);
       return new Promise((resolve) => {
-        resolve(null);
+        resolve({
+          status: -2,
+          message: 'Hubo un error al actualizar el producto.'
+        });
       });
     }
   }
 
-  async deleteById(productId: number): Promise<Boolean> {
+  async deleteById(productId: number): Promise<ResponseProducto> {
     try {
       const filePath = `./${this.nombreArchivo}.json`;  
       const fileExists = await fs.promises.stat(filePath).then(() => true).catch(() => false);
       
       if (!fileExists) {
         console.log("El archivo no existe");
-        return false;
+        return {
+          status: -1,
+          message: 'El archivo JSON no existe.'
+        };
       }
 
       const contentFile = await fs.promises.readFile(filePath, {encoding: "utf-8"});
@@ -193,11 +251,18 @@ class ContenedorProducto {
       productosCarritos[1].productos = newProducts;
       fs.promises.writeFile(filePath, JSON.stringify(productosCarritos, null, 2), {encoding: "utf-8"});
       console.log(`deleteById() => se elimino el producto con el  ID ${productId} correctamente`);
-      return true;
+      
+      return {
+        status: -1,
+        message: 'El producto se elimino correctamente.'
+      }
 
     } catch (error) {
       console.log(error);
-      return false;
+      return {
+        status: -2,
+        message: 'Hubo un error al eliminar el producto.'
+      };
     }
   }
 

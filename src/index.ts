@@ -3,7 +3,7 @@ import productsRouters from './routers/productos';
 import carritoRouters from './routers/carritos';
 
 const app = express();
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 3003;
 
 app.use(express.json());
 
