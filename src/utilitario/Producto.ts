@@ -59,11 +59,20 @@ class ContenedorProducto {
       }
       // console.log('products', products);
       // console.log('products[1]', products[1]);
-      return {
-        status: 1,
-        message: 'Se obtuvo los productos correctamente',
-        dataProducts: products[1]
+      if (products[1].productos.length === 0) {
+        return {
+          status: -1,
+          message: 'No existen productos en el archivo JSON.',
+          dataProducts: []
+        }
+      } else {
+        return {
+          status: 1,
+          message: 'Se obtuvo los productos correctamente.',
+          dataProducts: products[1]
+        }
       }
+      
     } catch (error) {
       console.log(error);
       return new Promise((resolve) => {

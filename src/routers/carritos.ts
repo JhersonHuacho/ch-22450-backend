@@ -1,10 +1,10 @@
-import { Router } from 'express';
+import { Request, Response, Router } from 'express';
 import ContenedorCarrito from '../utilitario/Carrito';
 const router = Router();
 const objCarrito = new ContenedorCarrito('db');
 
 
-router.get('/:id/productos', async (req, res) => {
+router.get('/:id/productos', async (req: Request, res: Response) => {
   const id = req.params.id === undefined ? -1 : parseInt(req.params.id);
   const response = await objCarrito.getProductosPorCarrito(id);
 
@@ -23,7 +23,7 @@ router.get('/:id/productos', async (req, res) => {
   }
 });
 
-router.post('/', async (req, res) => {
+router.post('/', async (req: Request, res: Response) => {
   const response = await objCarrito.saveCarrito();
 
   if (response.status === 1)
@@ -47,7 +47,7 @@ router.post('/', async (req, res) => {
   
 });
 
-router.post('/:id/productos', async (req, res) => {
+router.post('/:id/productos', async (req: Request, res: Response) => {
   const idCarrito = req.params.id === undefined ? -1 : parseInt(req.params.id);
   const response = await objCarrito.saveProductoAlCarrito(idCarrito, req.body);
 
@@ -66,7 +66,7 @@ router.post('/:id/productos', async (req, res) => {
   }
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', async (req: Request, res: Response) => {
   const idCarrito = req.params.id === undefined ? -1 : parseInt(req.params.id);
 
   const response = await objCarrito.deleteCarritoPorId(idCarrito);
@@ -87,7 +87,7 @@ router.delete('/:id', async (req, res) => {
   
 });
 
-router.delete('/:id/productos/:id_prod', async (req, res) => {
+router.delete('/:id/productos/:id_prod', async (req: Request, res: Response) => {
   const idCarrito = req.params.id === undefined ? -1 : parseInt(req.params.id);
   const idProducto = req.params.id_prod === undefined ? -1 : parseInt(req.params.id_prod);
   const response = await objCarrito.deleteProductoDelCarrito(idCarrito, idProducto);
