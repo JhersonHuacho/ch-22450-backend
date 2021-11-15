@@ -1,8 +1,5 @@
-# Full Stack
-Francisco Jherson Huacho Inga
-
-## Recursos utilizados para el desarrollo de los desafíos
-### Clase 10 - Desafío
+#### Recursos utilizados para el desarrollo de los desafíos
+###### Desafío 05
 
 Iconos
 https://www.iconfinder.com/
@@ -10,7 +7,7 @@ https://www.iconfinder.com/
 Estilos de tablas:
 https://colorlib.com/wp/css3-table-templates/
 
-### Clase 12 - Desafío
+###### Desafío 06
 
 Paso a paso para usar Handlebars con NodeJS
 https://waelyasmina.medium.com/a-guide-into-using-handlebars-with-your-express-js-application-22b944443b65
