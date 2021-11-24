@@ -1,0 +1,31 @@
+GET http://localhost:3001/all
+
+###
+
+GET http://localhost:3001/4
+
+###
+
+POST http://localhost:3001
+content-type: application/json
+
+{
+    "name": "Francisco",
+    "email": "jhersonhuacho@gmail.com",
+    "password": "123456789"
+}
+
+###
+
+PUT http://localhost:3001/update/1
+content-type: application/json
+
+{
+    "name": "Jherson",
+    "email": "fjhuacho@gmail.com"
+}
+
+###
+
+DELETE http://localhost:3001/deleteUser/2
+content-type: application/json
