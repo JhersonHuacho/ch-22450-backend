@@ -1,0 +1,8 @@
+npx knex init
+
+npx knex migrate:make us-t
+
+npx knex migrate:latest
+
+Video del after:
+me quede en el 35:12 - sequialize
