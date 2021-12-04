@@ -6,3 +6,14 @@ npx knex migrate:latest
 
 Video del after:
 me quede en el 35:12 - sequialize
+
+***************
+SQLite
+https://www.sqlitetutorial.net/
+https://www.tutorialspoint.com/sqlite/sqlite_commands.htm
+https://sqlitestudio.pl/
+https://codigoxules.org/primeros-pasos-con-sqlite-con-ejemplos-sencillos-guia-sqlite-1/
+https://material-docente.gitbook.io/parte-practica-informatica-para-ingenieria/ejemplo-de-base-de-datos.-sqlite-3.-introducir-y-visualizar-datos.
+https://www.tutorialesprogramacionya.com/sqliteya/detalleconcepto.php?punto=2&codigo=2&inicio=0
+https://devhints.io/knex
+
