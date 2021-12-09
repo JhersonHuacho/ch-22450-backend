@@ -1,0 +1,7 @@
+* Librerias para validación Mongoose - Validators Mongoose
+
+"type": "module"
+
+* npm
+    -   morgan
+    -   

@@ -1,0 +1,17 @@
+// Clase 17: Mongo DB
+
+$ mongod
+$ mongo
+$ show dbs
+$ db
+$ use coder
+$ show dbs
+$ db.usuarios.insert({ nombre: "Francisco", edad: 32 })
+$ show dbs
+$ show collections
+$ db.usuarios.find()
+$ db.usuarios.insert({ nombre: "Jherson", edad: 26 })
+$ db.usuarios.find()
+$ db.usuarios.insert({ nombre: "Jherson", apellido: "Huacho", edad: 26, email: "jhersonhuacho@gmail.com" })
+$ db.usuarios.find().pretty()
+$ 
