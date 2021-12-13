@@ -1,148 +1,32 @@
 import { Request, Response, Router } from 'express';
-import ContenedorProducto from '../utilitario/Producto';
+// import ContenedorProducto from '../utilitario/Producto';
 // const Contenedor = require('../utilitario/fileSystem.ts');
+import { productosDao as productosApi } from '../daos/index';
 
 const router = Router();
-const objProducts = new ContenedorProducto('db');
+// const objProducts = new ContenedorProducto('db');
 // const administrador: boolean;
 
-router.get('/:id?', async (req: Request, res: Response) => {
-  const id: number = req.params.id === undefined ? -1 : parseInt(req.params.id);
-  // console.log('params', req.params);
-  // console.log('params id', id);
-  if (id === -1) {
-    const response = await objProducts.getAll();
+router.get('/', async (req, res) => {
+  const response = await productosApi.getAll();
+  res.json(response);
+})
 
-    if (response.status === 1) {
-      res.json({
-        message: response.message,
-        data: response.dataProducts,
-        status: 'OK'
-      });
-    } else {
-      res.json({
-        message: response.message,
-        data: [],
-        status: response.status === -1 ? 'Validación' : 'ERROR'
-      });
-    }
-
-  } else {
-
-    const response = await objProducts.getById(id);
-
-    if (response.status === 1) {
-      res.json({
-        message: response.message,
-        data: response.dataProduct,
-        status: 'OK'
-      });
-    } else {
-      res.json({
-        message: response.message,
-        data: [],
-        status: response.status === -1 ? 'Validación' : 'ERROR'
-      });
-    }
-  }
-  
+router.get('/:id', async (req: Request, res: Response) => {
+  const productos = await productosApi.getById(req.params.id);
+  res.json(productos);
 });
 
 router.post('/', async (req:Request, res: Response) => {
-  // console.log('req.body', req.body);
-  console.log(`req.query`, req.query)
-  const objQuery = req.query;
-  const isAdmin: Boolean = Object.keys(objQuery).length === 0 
-    ? false 
-    : objQuery.admin === 'true' ? true : false;
-
-  if (isAdmin) {
-    const response = await objProducts.save(req.body);
-
-    if (response.status === 1) {
-      res.json({
-        message: response.message,
-        data: response.dataProduct,
-        status: 'OK'
-      });
-    } else {
-      res.json({
-        message: response.message,
-        data: [],
-        status: response.status === -1 ? 'Validación' : 'ERROR'
-      });
-    }
-  } else {
-    res.json({
-      error: -1,
-      descripcion: 'ruta / método "POST" no autorizada'
-    });
-  }
+  res.json(await productosApi.save(req.body));
 });
 
 router.put('/:id', async (req: Request, res: Response) => {
-  // console.log(`req.query`, req.query)
-  const objQuery = req.query;
-  const isAdmin: Boolean = Object.keys(objQuery).length === 0 
-    ? false 
-    : objQuery.admin === 'true' ? true : false;
-
-  if (isAdmin) {
-    const id = req.params.id === undefined ? -1 : parseInt(req.params.id);
-    const body = req.body;
-    const response = await objProducts.updateById(body, id);
-  
-  
-    if (response.status === 1) {
-      res.json({
-        message: 'put => Acceso administrador',
-        data: response.dataProduct,
-        status: 'OK'
-      });
-    } else {
-      res.json({
-        message: 'put => Acceso administrador',
-        data: [],
-        status: 'ERROR'
-      });
-    }
-  } else {
-    res.json({
-      error: -1,
-      descripcion: 'ruta /:id método "PUT" no autorizada'
-    });
-  }
+  res.json(await productosApi.update(req.body));
 });
 
 router.delete('/:id', async (req: Request, res: Response) => {
-  const objQuery = req.query;
-  const isAdmin: Boolean = Object.keys(objQuery).length === 0 
-    ? false 
-    : objQuery.admin === 'true' ? true : false;
-  
-  if (isAdmin) {
-    const id = req.params.id === undefined ? -1 : parseInt(req.params.id);
-    const response = await objProducts.deleteById(id);
-  
-    if (response.status === 1) {
-      res.json({
-        message: response.message,
-        data: {},
-        status: 'OK'
-      });
-    } else {
-      res.json({
-        message: response.message,
-        data: {},
-        status: 'ERROR'
-      });
-    }
-  } else {
-    res.json({
-      error: -1,
-      descripcion: 'ruta /:id método "DELETE" no autorizada.'
-    });
-  }
+  res.json(await productosApi.deleteById(req.params.id));
 });
 
 export default router;

@@ -1,0 +1,42 @@
+GET http://localhost:3001/api/productos
+
+###
+GET http://localhost:3001/api/productos/61b75e427ab64d6edde644d3
+
+###
+
+POST http://localhost:3001/api/productos
+Content-Type: application/json
+
+{
+  "name": "Leche Gloria Evaporada azul 400g",
+  "price": 3.50,
+  "thumbnail": ""
+}
+
+###
+
+POST http://localhost:3001/api/productos
+Content-Type: application/json
+
+{
+  "name": "Leche Gloria Light 400g",
+  "price": 3.50,
+  "thumbnail": ""
+}
+
+###
+
+PUT http://localhost:3001/api/productos/61b75e7a7ab64d6edde644d8
+Content-Type: application/json
+
+{
+  "_id": "61b75e7a7ab64d6edde644d8",
+  "name": "Leche Gloria Light 400g",
+  "price": 4,
+  "thumbnail": ""
+}
+
+###
+
+DELETE http://localhost:3001/api/productos/61b75e7a7ab64d6edde644d8
