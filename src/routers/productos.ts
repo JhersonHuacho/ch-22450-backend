@@ -2,6 +2,7 @@ import { Request, Response, Router } from 'express';
 // import ContenedorProducto from '../utilitario/Producto';
 // const Contenedor = require('../utilitario/fileSystem.ts');
 import { productosDao as productosApi } from '../daos/index';
+import isAdmin from '../middlewares/validateAdminMiddleware';
 
 const router = Router();
 // const objProducts = new ContenedorProducto('db');
@@ -17,15 +18,15 @@ router.get('/:id', async (req: Request, res: Response) => {
   res.json(productos);
 });
 
-router.post('/', async (req:Request, res: Response) => {
+router.post('/', isAdmin, async (req: Request, res: Response) => {
   res.json(await productosApi.save(req.body));
 });
 
-router.put('/:id', async (req: Request, res: Response) => {
+router.put('/:id', isAdmin, async (req: Request, res: Response) => {
   res.json(await productosApi.update(req.body));
 });
 
-router.delete('/:id', async (req: Request, res: Response) => {
+router.delete('/:id', isAdmin, async (req: Request, res: Response) => {
   res.json(await productosApi.deleteById(req.params.id));
 });
 
