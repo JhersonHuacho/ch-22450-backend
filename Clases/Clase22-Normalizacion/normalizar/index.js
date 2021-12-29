@@ -1,5 +1,5 @@
 const { normalize, schema } = require('normalizr');
-const originalData = require('./data');
+const { obj: originalData, objEmpresa } = require('./data');
 const util = require('util');
 
 // NORMALIZACIÓN
@@ -23,3 +23,23 @@ print(originalData);
 
 console.log('OBJETO NORMALIZADO ' + Object.keys(normalizeBlog).length);
 print(normalizeBlog);
+
+
+// NORMALIZACIÓN EMPRESA
+const gerenteSchema = new schema.Entity('gerente');
+const encargadoSchema = new schema.Entity('encargado');
+const empleadosSchema = new schema.Entity('empleados');
+
+const empresaSchema = new schema.Entity('empresa', {
+    gerente: gerenteSchema,
+    encargado: encargadoSchema,
+    empleados: [empleadosSchema]
+});
+
+const normalizeEmpresa = normalize(originalData, empresaSchema);
+
+print(normalizeEmpresa)
+print(originalData)
+
+console.log("Original", Object.keys(originalData).length)
+console.log("normalizeEmpresa", Object.keys(normalizeEmpresa).length)

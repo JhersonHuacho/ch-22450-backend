@@ -2,9 +2,34 @@
 {{> listProducts listExists=listExists data=data}}
 
 <section class="mensajes">
-    <h3>Centro de Mensajes </h3>
-    <input type="email" class="input-correo" />
-    <span class="mensaje-validacion none">* Debe ingresar un Email</span>
+    <h3>Centro de Mensajes (Compresión: <span class="compresion"></span>)</h3>
+    <form class="formulario-registro-chat">
+        <div class="input-registro">
+            <label for="email">Email:</label>
+            <input type="email" class="input-correo" id="email" name="email" />
+            <span class="mensaje-validacion none">* Debe ingresar un Email</span>
+        </div>
+        <div class="input-registro">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" />
+        </div>
+        <div class="input-registro">
+            <label for="apellido">Apellido:</label>
+            <input type="text" id="apellido" name="apellido" />
+        </div>
+        <div class="input-registro">
+            <label for="edad">Edad:</label>
+            <input type="text" id="edad" name="edad" />
+        </div>
+        <div class="input-registro">
+            <label for="alias">Alias:</label>
+            <input type="text" id="alias" name="alias" />
+        </div>
+        <div class="input-registro">
+            <label for="avatar">Avatar:</label>
+            <input type="text" id="avatar" name="avatar" />
+        </div>
+    </form>
     <hr>
     <div class="content-mensajes">
     </div>

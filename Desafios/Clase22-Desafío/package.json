@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",
@@ -12,9 +13,14 @@
     "express": "^4.17.2",
     "express-handlebars": "^5.3.4",
     "faker": "^5.5.3",
+    "firebase-admin": "^10.0.1",
     "knex": "^0.95.14",
     "mysql2": "^2.3.3",
+    "normalizr": "^3.6.1",
     "socket.io": "^4.4.0",
     "sqlite3": "^5.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }

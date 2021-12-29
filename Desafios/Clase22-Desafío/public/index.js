@@ -1,5 +1,17 @@
 const socket = io();
 
+// Normalización
+const authorSchema = new normalizr.schema.Entity('author', {}, { idAttribute: "id" });
+// const textSchema = new schema.Entity('text');
+const postSchema = new normalizr.schema.Entity('post',
+  { author: authorSchema },
+  { idAttribute: "id" }
+);
+const postsSchema = new normalizr.schema.Entity('posts',
+  { posts: [postSchema] },
+  { idAttribute: "id" }
+);
+
 const listProductsHtml = ((data) => {
   const tbody = document.querySelector('tbody');
   const tr = document.createElement('tr');
@@ -73,34 +85,75 @@ formChat.addEventListener('submit', (event) => {
     fecha: fecha,
     mensaje: inputMensaje.value
   }
+
+  const inputNombre = document.querySelector('#nombre');
+  const inputApellido = document.querySelector('#apellido');
+  const inputEdad = document.querySelector('#edad');
+  const inputAlias = document.querySelector('#alias');
+  const inputAvatar = document.querySelector('#avatar');
+  const dataMensaje = {
+    author: {
+      id: inputCorreo.value,
+      nombre: inputNombre.value,
+      apellido: inputApellido.value,
+      edad: inputEdad.value,
+      alias: inputAlias.value,
+      avatar: inputAvatar.value
+    },
+    fecha: fecha,
+    text: inputMensaje.value
+  }
   inputMensaje.value = '';
-  socket.emit('sendMensaje', objMensaje);
+  const result = [];
+  const object = dataMensaje;
+  object.id = 'AozbjQjJYLQaXqsa9dVV';
+  result.push(dataMensaje);
+  const originalData = {
+    id: "mensajes",
+    posts: result
+  };
+  console.log('originalData', originalData)
+  // socket.emit('sendMensaje', dataMensaje);
+  socket.emit('sendMensaje', normalizr.normalize(originalData, postsSchema));
 });
 
 socket.on('listarMensajes', (data) => {
   const contentMensajes = document.querySelector('.content-mensajes');
   contentMensajes.innerHTML = '';
-  console.log('data', data);
+  console.log('listarMensajes => data', data);
+  const denormalizadoData = normalizr.denormalize(
+    data.result,
+    postsSchema,
+    data.entities
+  )
   if (data.length !== 0) {
-    data.forEach(mensaje => {
-      console.log('mensaje', mensaje);
+    data.entities.posts.mensajes.posts.forEach(idMensaje => {
+      const post = data.entities.post[idMensaje]
+
+      console.log('post', post);
       const p = document.createElement('p');
       const spanEmail = document.createElement('span');
       const spanFecha = document.createElement('span');
       const spanMensaje = document.createElement('span');
-      spanEmail.innerText = `${mensaje.email} `;
+      spanEmail.innerText = `${post.author} `;
       spanEmail.style.color = 'blue';
       p.appendChild(spanEmail);
 
-      spanFecha.innerText = `${mensaje.fecha} `;
+      spanFecha.innerText = `${post.fecha} `;
       spanFecha.style.color = 'red';
       p.appendChild(spanFecha);
 
-      spanMensaje.innerText = `: ${mensaje.mensaje}`;
+      spanMensaje.innerText = `: ${post.text}`;
       spanMensaje.style.color = 'green';
       p.appendChild(spanMensaje);
 
       contentMensajes.appendChild(p);
     });
+
+    const compresionSpan = document.querySelector('.compresion');
+    const desnormalizado = JSON.stringify(denormalizadoData).length;
+    const normalizado = JSON.stringify(data).length;
+    const resultado = Math.round((1 - (normalizado / desnormalizado)) * 100, 2)
+    compresionSpan.innerText = resultado.toString() + "%";
   }
 });
