@@ -1,0 +1,25 @@
+$ redis-cli
+$ 127.0.0.1:6379> SET name "Francisco"
+$ 127.0.0.1:6379> ping
+$ 127.0.0.1:6379> SET lastname "huacho"
+$ 127.0.0.1:6379> GET name
+$ 127.0.0.1:6379> GET lastaname
+$ 127.0.0.1:6379> SET email "jhersonhuacho@gmail.com" EX 30
+// EX => tiempo de expiración
+$ 127.0.0.1:6379> GET email
+$ 127.0.0.1:6379> GET name
+// Expirar una llave que ya existe
+$ 127.0.0.1:6379> EXPIRE name 30
+$ 127.0.0.1:6379> TTL name
+$ 127.0.0.1:6379> TTL name
+$ 127.0.0.1:6379> TTL name
+
+01:37:00
+
+// Cuando ejecutamos npm start, vamos a la consola
+$ 127.0.0.1:6379>  KEYS "*"
+1)  "sess:D2kd_Tx80qZZ-Cq"
+2)  lastname
+$ 127.0.0.1:6379>  GET "sess:D2kd_Tx80qZZ-Cq"
+$ 127.0.0.1:6379>  GET "sess:D2kd_Tx80qZZ-Cq"
+

@@ -25,7 +25,13 @@ app.get('/', (req, res) => {
     res.send({ se: req.session });
 });
 
-// Login
+app.get('/getSession', (req, res) => {
+    console.log('/getSession')
+    console.log(req.session);
+    res.send({ se: req.session });
+});
+
+// => Login
 app.get('/login', (req, res) => {
     const { username, password } = req.query;
     if (username !== 'Francisco' || password !== '123456') {
@@ -49,6 +55,17 @@ app.get('/logout', (req, res) => {
 
 app.get('/privado', authMiddleware, (req, res) => {
     res.send('Si esta aca, es porque estas autorizado');
+})
+
+// => Resolviendo el Ejercicio de la diapositiva
+app.get('/root', (req, res) => {
+    if (req.session.contador) {
+        req.session.contador++
+        res.send(`Haz visitado el sitio ${req.session.contador} veces!`)
+    } else {
+        req.session.contador = 1
+        res.send('Bienvenido')
+    }
 })
 
 app.listen(3003, () => {
