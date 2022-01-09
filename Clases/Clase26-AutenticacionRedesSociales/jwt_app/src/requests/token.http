@@ -1,0 +1,30 @@
+GET http://localhost:3002/all
+
+###
+
+GET http://localhost:3002/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjowLjM0NjAxNjE0ODE2NTcxMiwidXNlcm5hbWUiOiJmcmFuY2lzY28iLCJwYXNzd29yZCI6IjEyMzQ1NiJ9LCJpYXQiOjE2NDEyNTY3NTgsImV4cCI6MTY0MTM0MzE1OH0.DpQc5jPICAoaK_sgJFhY47xdNrUenVj1rrYRcpCX7h0
+
+###
+
+GET http://localhost:3002/profile
+
+###
+
+POST http://localhost:3002/signup
+content-type: application/json
+
+{
+    "username": "francisco",
+    "password": "123456"
+}
+
+###
+
+POST http://localhost:3002/login
+content-type: application/json
+
+{
+    "username": "francisco",
+    "password": "123456"
+}
