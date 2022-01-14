@@ -1,0 +1,34 @@
+<section class="register">
+  <div class="register__content">
+    <h1 class="register__title">Registro de usuario</h1>
+    <form 
+      action="/api/register" 
+      method="post" 
+      class="register__form"
+    >
+      <div class="register__input-content">
+        <input 
+          class="register__input" 
+          type="text" 
+          placeholder="Usuario" 
+          name="usuario" 
+        />
+      </div>
+      <div class="register__input-content">
+        <input 
+          class="register__input" 
+          type="password" 
+          placeholder="Password" 
+          name="password" 
+        />
+      </div>
+      <div class="register__input-content"> 
+        <input class="register__button-submit" type="submit" />
+      </div>
+    </form>
+    <hr/>
+    <a href="/login">
+      <button class="register__button-login">Ir a Login</button>
+    </a>
+  </div>
+</section>

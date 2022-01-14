@@ -1,0 +1,28 @@
+Video del after:
+me quede en el 35:12 - sequialize
+
+-- Handlebars Templating in ExpressJS
+https://www.geeksforgeeks.org/handlebars-templating-in-expressjs/
+https://dev.to/alexmercedcoder/intro-to-express-templating-and-api-s-ejs-handlebars-mustache-pug-4al0
+
+https://www.geeksforgeeks.org/express-js-res-redirect-function/
+https://www.geeksforgeeks.org/handlebars-templating-in-expressjs/
+
+https://stackoverflow.com/questions/52229901/navigate-to-route-on-button-click
+
+https://learn.co/lessons/node-js-intro-to-handlebars
+
+https://stackoverflow.com/questions/52229901/navigate-to-route-on-button-click
+
+-- Session Mongo Atlas
+https://developpaper.com/brief-introduction-of-express-using-mongodb-to-manage-session-storage-connect-mongo-module/
+
+https://dev.to/monicamakes/saving-session-data-with-connect-mongo-148b
+
+https://johnserrano.co/blog/manejo-de-sesiones-con-express
+
+https://developpaper.com/brief-introduction-of-express-using-mongodb-to-manage-session-storage-connect-mongo-module/
+
+https://www.linkedin.com/pulse/starting-authentication-tutorial-nodejs-mongodb-daniel-deutsch/
+
+https://github.com/jdesboeufs/connect-mongo/issues/140
