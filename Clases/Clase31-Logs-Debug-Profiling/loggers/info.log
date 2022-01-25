@@ -1,0 +1,3 @@
+[2022-01-19T19:41:29.712] [WARN] archivo - logger warn
+[2022-01-19T19:41:29.713] [ERROR] archivo - logger error
+[2022-01-19T19:41:29.713] [FATAL] archivo - logger fatal

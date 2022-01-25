@@ -1,0 +1,11 @@
+Me quede en el break: Minuto 30
+
+Para para el servidor(ejecutarlo en otro cmd):
+$ nginx -s stop
+$ nginx -s quit
+
+$ pm2 start ./index.js --watch -- 8081
+
+
+https://www.ionos.es/digitalguide/servidores/know-how/que-es-un-servidor-proxy/
+https://www.xataka.com/basics/que-es-un-proxy-y-como-puedes-utilizarlo-para-navegar-de-forma-mas-anonima

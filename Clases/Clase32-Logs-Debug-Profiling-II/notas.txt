@@ -1,0 +1,19 @@
+* Artillery
+
+- Podemos hacer pruebas de carga o pruebas de estres
+
+$ node index.js 8081
+$ node index.js 8081 CLUSTER
+
+$ artillery quick --count 50 -n 40 http://localhost:3002?max=1000 > result_fork.txt
+
+$ curl -X GET "http://localhost:3002/newUser?username=francisco&password=123456"
+
+$ node --prof index.js
+$ node --prof-process bloq-v8.log > result_prof-bloq.txt
+
+Instalar curl en windows
+https://www.ionos.com/digitalguide/server/tools/introduction-to-curl-in-windows/
+https://programmerclick.com/article/9661943681/
+
+https://programmerclick.com/article/9661943681/
