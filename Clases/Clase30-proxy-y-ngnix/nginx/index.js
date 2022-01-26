@@ -7,5 +7,5 @@ app.get('/data', (req, res) => {
 })
 
 app.listen(PORT, () => {
-    console.log(`Server in running on port ${PORT} - process ${process.id}`)
+    console.log(`Server in running on port ${PORT} - process ${process.pid}`)
 });

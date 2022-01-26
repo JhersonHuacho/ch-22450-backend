@@ -26,3 +26,8 @@ https://developpaper.com/brief-introduction-of-express-using-mongodb-to-manage-s
 https://www.linkedin.com/pulse/starting-authentication-tutorial-nodejs-mongodb-daniel-deutsch/
 
 https://github.com/jdesboeufs/connect-mongo/issues/140
+
+-- enviar argumentos a npm script
+
+https://qastack.mx/programming/11580961/sending-command-line-arguments-to-npm-script
+https://isolution.pro/es/q/so64386719/pase-los-argumentos-de-la-linea-de-comando-a-los-scripts-npm-en-package-json

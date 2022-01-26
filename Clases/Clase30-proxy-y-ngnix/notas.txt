@@ -1,4 +1,4 @@
-Me quede en el break: Minuto 30
+$ nginx.exe
 
 Para para el servidor(ejecutarlo en otro cmd):
 $ nginx -s stop

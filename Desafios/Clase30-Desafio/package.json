@@ -5,7 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon server.js"
+    "server-fork": "nodemon server.js --port=3001",
+    "server-cluster": "nodemon server.js --port=3001 --modo=CLUSTER",
+    "server-forever": "forever start server.js",
+    "server-forever-list": "forever list",
+    "server-forever-stop": "forever stop",
+    "server-pm2": "pm2 start server.js"
   },
   "author": "",
   "license": "ISC",
@@ -18,6 +23,7 @@
     "express-session": "^1.17.2",
     "faker": "^5.5.3",
     "firebase-admin": "^10.0.1",
+    "forever": "^4.0.2",
     "knex": "^0.95.14",
     "minimist": "^1.2.5",
     "mongodb": "^4.2.2",
@@ -26,6 +32,7 @@
     "normalizr": "^3.6.1",
     "passport": "^0.5.2",
     "passport-local": "^1.0.0",
+    "pm2": "^5.1.2",
     "socket.io": "^4.4.0",
     "sqlite3": "^5.0.2"
   },
