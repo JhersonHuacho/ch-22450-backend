@@ -15,5 +15,6 @@ $ node --prof-process bloq-v8.log > result_prof-bloq.txt
 Instalar curl en windows
 https://www.ionos.com/digitalguide/server/tools/introduction-to-curl-in-windows/
 https://programmerclick.com/article/9661943681/
-
+https://platzi.com/clases/1804-ibm-watson/26684-instalar-curl-en-windows/?gclid=CjwKCAiAl-6PBhBCEiwAc2GOVKp1ERRPR7GVqQ2NVcl__Do-ye5HbXlmkRnbeVKH7-2LqUKTJ6_CohoCwYMQAvD_BwE&gclsrc=aw.ds
+https://www.thewindowsclub.com/how-to-install-curl-on-windows-10
 https://programmerclick.com/article/9661943681/

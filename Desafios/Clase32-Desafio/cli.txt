@@ -1,0 +1,24 @@
+node server.js --port=3001
+npm run server-fork
+npm run server-cluster
+npm run server-forever
+npm run server-forever-list
+npm run server-forever-stop -- 27680
+
+--- MODO FORK
+pm2 start server.js --name="Server1" --watch
+pm2 start server.js --name="Server1" --watch -- 3001
+
+npx pm2 start server.js --name="Server1" --watch
+npx pm2 start server.js --name="Server1" --watch -- 3001
+
+--- MODO cluster
+pm2 start server.js --name="Server1" --watch -i
+pm2 start server.js --name="Server1" --watch -i -- 3001
+
+npx pm2 start server.js --name="Server1" --watch -i
+npx pm2 start server.js --name="Server1" --watch -i -- 3001
+
+--
+npx pm2 list
+npx pm2 stop
