@@ -1,0 +1,8 @@
+* Aquí muestra las vulnerabilidades mas comunes:
+
+https://owasp.org/www-project-top-ten/2017/
+
+* Aplicación
+ Para poder interceptar
+
+https://owasp.org/www-project-application-security-verification-standard/

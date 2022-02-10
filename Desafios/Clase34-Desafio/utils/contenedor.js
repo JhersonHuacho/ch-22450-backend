@@ -6,15 +6,15 @@ module.exports = class Contenedor {
   constructor(nombreArchivo) {
     this.nombreArchivo = nombreArchivo;
     this.listProducts = [];
+    this.filePath = `./../json/${this.nombreArchivo}.json`;
   }
 
   async save(product) {
     try {
-      const filePath = `./${this.nombreArchivo}.json`;
-      const fileExists = await fs.promises.stat(filePath).then(() => true).catch(() => false);
+      const fileExists = await fs.promises.stat(this.filePath).then(() => true).catch(() => false);
 
       if (fileExists) {
-        const contentFile = await fs.promises.readFile(filePath, { encoding: "utf-8" });
+        const contentFile = await fs.promises.readFile(this.filePath, { encoding: "utf-8" });
         let products = [];
 
         if (contentFile === "") {
@@ -28,14 +28,14 @@ module.exports = class Contenedor {
         this.listProducts = products;
         this.listProducts.push(product);
         const data = JSON.stringify(this.listProducts, null, 2);
-        await fs.promises.writeFile(filePath, data, { encoding: "utf-8" });
+        await fs.promises.writeFile(this.filePath, data, { encoding: "utf-8" });
         console.log("save() => El producto se guardo correctamente. Id ==> " + product.id);
       } else {
         product.id = 1;
         this.listProducts.push(producto);
         const data = JSON.stringify(this.listProducts, null, 2);
 
-        await fs.promises.writeFile(filePath, data, { encoding: "utf-8" });
+        await fs.promises.writeFile(this.filePath, data, { encoding: "utf-8" });
         console.log("save() => El producto se guardo correctamente. Id ==> " + product.id);
       }
       return product;
@@ -46,7 +46,6 @@ module.exports = class Contenedor {
   }
 
   async getById(productId) {
-    const filePath = `./${this.nombreArchivo}.json`;
     const contentFile = await fs.promises.readFile(filePath, { encoding: "utf-8" });
     const products = JSON.parse(contentFile);
     // console.log(products);
@@ -58,15 +57,14 @@ module.exports = class Contenedor {
 
   async getAll() {
     try {
-      const filePath = `./${this.nombreArchivo}.json`;
-      const fileExists = await fs.promises.stat(filePath).then(() => true).catch(() => false);
+      const fileExists = await fs.promises.stat(this.filePath).then(() => true).catch(() => false);
 
       if (!fileExists) {
         console.log("El archivo no existe");
         return false;
       }
 
-      const contentFile = await fs.promises.readFile(filePath, { encoding: "utf-8" });
+      const contentFile = await fs.promises.readFile(this.filePath, { encoding: "utf-8" });
       let products = [];
 
       if (contentFile === "") {
@@ -85,15 +83,14 @@ module.exports = class Contenedor {
 
   async updateById(productParam, productParamId) {
     try {
-      const filePath = `./${this.nombreArchivo}.json`;
-      const fileExists = await fs.promises.stat(filePath).then(() => true).catch(() => false);
+      const fileExists = await fs.promises.stat(this.filePath).then(() => true).catch(() => false);
 
       if (!fileExists) {
         console.log("El archivo no existe");
         return false;
       }
 
-      const contentFile = await fs.promises.readFile(filePath, { encoding: "utf-8" });
+      const contentFile = await fs.promises.readFile(this.filePath, { encoding: "utf-8" });
       const products = JSON.parse(contentFile);
       console.log("products", products);
       console.log("productParam", productParam);
@@ -108,7 +105,7 @@ module.exports = class Contenedor {
           : product;
       });
       console.log("newProducts", newProducts);
-      fs.promises.writeFile(filePath, JSON.stringify(newProducts, null, 2), { encoding: "utf-8" });
+      fs.promises.writeFile(this.filePath, JSON.stringify(newProducts, null, 2), { encoding: "utf-8" });
 
     } catch (error) {
       console.log(error);
@@ -116,19 +113,18 @@ module.exports = class Contenedor {
   }
   async deleteById(productId) {
     try {
-      const filePath = `./${this.nombreArchivo}.json`;
-      const fileExists = await fs.promises.stat(filePath).then(() => true).catch(() => false);
+      const fileExists = await fs.promises.stat(this.filePath).then(() => true).catch(() => false);
 
       if (!fileExists) {
         console.log("El archivo no existe");
         return false;
       }
 
-      const contentFile = await fs.promises.readFile(filePath, { encoding: "utf-8" });
+      const contentFile = await fs.promises.readFile(this.filePath, { encoding: "utf-8" });
       const products = JSON.parse(contentFile);
       const newProducts = products.filter(product => product.id !== productId);
 
-      fs.promises.writeFile(filePath, JSON.stringify(newProducts, null, 2), { encoding: "utf-8" });
+      fs.promises.writeFile(this.filePath, JSON.stringify(newProducts, null, 2), { encoding: "utf-8" });
       console.log(`deleteById() => se elimino el producto con el  ID ${productId} correctamente`);
 
     } catch (error) {
@@ -138,14 +134,13 @@ module.exports = class Contenedor {
 
   async deleteAll() {
     try {
-      const filePath = `./${this.nombreArchivo}.json`;
-      const fileExists = await fs.promises.stat(filePath).then(() => true).catch(() => false);
+      const fileExists = await fs.promises.stat(this.filePath).then(() => true).catch(() => false);
 
       if (!fileExists) {
         console.log("El archivo no existe");
         return false;
       }
-      fs.promises.writeFile(filePath, "", { encoding: "utf-8" });
+      fs.promises.writeFile(this.filePath, "", { encoding: "utf-8" });
       console.log("deleteAll() => se eliminaron todos los productos correctamente.");
 
     } catch (error) {

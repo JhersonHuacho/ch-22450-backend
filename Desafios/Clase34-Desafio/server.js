@@ -3,9 +3,9 @@ const compression = require('compression')
 const exphbs = require("express-handlebars");
 const argv = require('minimist')(process.argv.slice(2));
 // =>
-const knex = require('./db');
-// =>
-const routersAuth = require('./routers/auth');
+const routerAuth = require('./routers/auth');
+const routerApi = require("./routers/api");
+const { getProducts, postProducts } = require("./routers/products");
 // => passport
 const session = require('express-session');
 // => Persistencia por MongoDB
@@ -14,72 +14,29 @@ const advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true };
 // => passport
 const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
-
+// => Model
 const Usuario = require('./models/Usuarios');
-// Logger
-const log4js = require('log4js');
+// =>
+const { loggerMiddleware, notFoundMiddleware, handleErrorMiddleware } = require("./middleware");
+const { createHash, isValidPassword } = require("./utils/encrypt");
 
 class Server {
   constructor() {
     this.app = express();
     this.port = process.env.PORT || argv.port || 3001;
-    this.saltRounds = 10;
-    this.loggerServer();
-    this.loggerConsole = log4js.getLogger();
-    this.loggerFile = log4js.getLogger('loggerFile');
-    // Middlewares
     this.middlewares();
-    //
     this.setServer()
-    // Conectar BD
     this.initPassport();
-    // Rutas de mi aplicación
     this.routes();
-
   }
+
   getApp() {
     return this.app;
   }
-  // => bcrypt
-  createHash(password) {
-    const salt = bcrypt.genSaltSync(this.saltRounds);
-    const hash = bcrypt.hashSync(password, salt, null);
-    return hash;
-  }
-  // => bcrypt
-  isValidPassword(user, password) {
-    return bcrypt.compareSync(password, user.password);
-  }
-  loggerServer() {
-    log4js.configure({
-      appenders: {
-        loggerConsole: { type: 'console' },
 
-        archivoWarn: { type: 'file', filename: 'warn.log' },
-        archivoError: { type: 'file', filename: 'error.log' },
-        loggerArchivoWarn: { type: 'logLevelFilter', appender: 'archivoWarn', level: 'warn' },
-        loggerArchivoError: { type: 'logLevelFilter', appender: 'archivoError', level: 'error' }
-      },
-      categories: {
-        default: { appenders: ['loggerConsole'], level: 'info' },
-        loggerFile: { appenders: ['loggerArchivoWarn', 'loggerArchivoError'], level: 'all' }
-      }
-    });
-  }
   middlewares() {
-    console.log('THIS => middlewares() ' + JSON.stringify(this));
-    // this.app.use(function notFound(req, res, next) {
-    //   console.log('THIS => this.app.use ' + this);
-    //   console.log('HUACHO' + `url: ${req.url} - method: ${req.method}`);
-    //   this.loggerConsole.info(`url: ${req.url} - method: ${req.method}`);
-    //   next();
-    // })
-    this.app.use((req, res, next) => {
-      console.log('THIS => this.app.use ' + this);
-      console.log('HUACHO' + `url: ${req.url} - method: ${req.method}`);
-      this.loggerConsole.info(`url: ${req.url} - method: ${req.method}`);
-      next();
-    })
+    // console.log('THIS => middlewares() ' + JSON.stringify(this));
+    this.app.use(loggerMiddleware)
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use('/static', express.static(__dirname + "/public"));
@@ -127,7 +84,6 @@ class Server {
         console.log('local-login');
         let users = await Usuario.find();
         const user = users.find(objUser => {
-          // return objUser.usuario === usuario && objUser.password === password
           return objUser.usuario === usuario && isValidPassword(objUser, password)
         })
 
@@ -179,127 +135,26 @@ class Server {
   }
 
   routes() {
-    this.app.use(routersAuth);
-    console.log('ROUTES');
+    this.app.use(routerAuth);
+    this.app.use('/api', routerApi)
     // ==> Routes Views
-    this.app.get('/productos', (req, res) => {
-      console.log('/productos');
-      // if (!req.session.name) {
-      if (!req.isAuthenticated()) {
-        console.log('Usuario no esta autenticado')
-        res.redirect('/login')
-        return;
-      }
-      // console.log('req.user')
-      // console.log(req.user)
-      const name = req.user.usuario;
-      console.log('name ' + name);
-      knex
-        .from('product')
-        .select('id', 'title', 'price', 'thumbnail')
-        .then(products => {
-          // console.log('products', products);
-          let listExists = false;
-          if (products.length !== 0) {
-            listExists = true;
-          }
-          res.render('main', {
-            layout: 'index',
-            data: products,
-            listExists: listExists,
-            user: name
-          });
-        })
-    });
-
-    // ==> Routes API TEST
-    this.app.get('/api/randoms', (req, res) => {
-      console.log('req.query =>', req.query)
-      const min = 1;
-      const max = req.query.cant === undefined ? 100000000 : Number(req.query.cant);
-      const child = fork('./calculo.js', [min, max]);
-      child.send('start');
-
-      // res.json({ data: objRandom })
-
-      child.on('message', (objRandom) => {
-        // console.log('objRandom server.js', objRandom)
-        res.json({ data: objRandom });
-      })
-    })
-
-    this.app.get('/productos-test', (req, res) => {
-      let arrProducts = [];
-
-      for (i = 1; i <= 5; i++) {
-        arrProducts.push({
-          id: faker.datatype.number(),
-          title: faker.commerce.productName(),
-          description: faker.commerce.productDescription(),
-          price: faker.commerce.price(),
-          thumbnail: faker.image.imageUrl()
-        });
-      }
-
-      console.log();
-
-      res.json(arrProducts);
-    })
+    this.app.get('/productos', getProducts);
+    this.app.post('/productos', postProducts);
 
     // Routes API
-    this.app.post('/login', passport.authenticate('local-login', {
+    this.app.post('/api/login', passport.authenticate('local-login', {
       successRedirect: '/productos',
       failureRedirect: '/faillogin'
     }))
 
-    this.app.post('/register', passport.authenticate('local-signup', {
+    this.app.post('/api/register', passport.authenticate('local-signup', {
       successRedirect: '/login',
       failureRedirect: '/failregister'
     }))
 
-    this.app.get('/api/productos', (req, res) => {
-      knex
-        .from('product')
-        .select('id', 'title', 'price', 'thumbnail')
-        .then(respone => {
-          // console.log('respone', respone);
-          res.json(respone)
-        })
-    });
-
-    this.app.post('/productos', (req, res) => {
-      console.log('req => ', req);
-      const data = {
-        title: req.body.title,
-        price: req.body.price,
-        thumbnail: req.body.thumbnail
-      }
-      knex('product')
-        .insert(data)
-        .then(() => {
-          console.log("Se registro correctamente el producto");
-          res.json(data)
-        })
-        .catch((error) => {
-          console.log('Error al guardar => ', error);
-        });
-    });
-
     // => Middlewares Routers
-    this.app.use((req, res) => {
-      this.loggerFile.warn(`url: ${req.url} - method: ${req.method}`);
-      res.status(404).send({
-        error: 'unknow endpoint'
-      });
-    });
-    // this.app.use(function handleErrors(error, req, res, next) {
-    //   this.loggerFile.error(`url: ${req.url} - method: ${req.method}`);
-    //   res.status(500).send();
-    // })
-    this.app.use((error, req, res, next) => {
-      this.loggerFile.error(`url: ${req.url} - method: ${req.method}`);
-      res.status(500).send();
-    })
+    this.app.use(notFoundMiddleware);
+    this.app.use(handleErrorMiddleware)
   }
 
   listen() {

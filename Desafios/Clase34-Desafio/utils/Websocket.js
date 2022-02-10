@@ -1,6 +1,6 @@
 const http = require('http');
 const { Server } = require('socket.io');
-const { db } = require('./contenedores/ContenedorFirebase');
+const { db } = require('../contenedores/ContenedorFirebase');
 const { normalize, denormalize, schema } = require('normalizr');
 const util = require('util');
 
