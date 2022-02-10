@@ -1,0 +1,8 @@
+POST http://localhost:3001/email-coder
+Content-Type: application/json
+
+# {
+#     "title": "Televisor",
+#     "price": 50,
+#     "thumbnail": "https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-256.png"
+# }

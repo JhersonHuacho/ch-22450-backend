@@ -1,0 +1,9 @@
+https://nodemailer.com/about/
+https://ethereal.email/create
+
+Name:	Sage Skiles
+Username:	btdp2wb2qtmgmnj7@ethereal.email (also works as a real inbound email address)
+Password:	yEZXhGVehpM49yQ3bf
+
+** Para autogenerar contraseña en gmail
+https://security.google.com/settings/security/apppasswords
