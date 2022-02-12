@@ -3,11 +3,12 @@ const { Server } = require('socket.io');
 const { db } = require('../contenedores/ContenedorFirebase');
 const { normalize, denormalize, schema } = require('normalizr');
 const util = require('util');
-
+const argv = require('minimist')(process.argv.slice(2));
 class Websocket {
   constructor(app) {
     this.httpServer = http.createServer(app);
     this.io = new Server(this.httpServer);
+    this.port = process.env.PORT || argv.port || 3001;
     // => Normalización
     this.authorSchema = new schema.Entity('author', {}, { idAttribute: "id" });
     // const textSchema = new schema.Entity('text');
@@ -41,14 +42,14 @@ class Websocket {
         id: "mensajes",
         posts: result
       };
-      const normalizedData = normalize(originalData, postsSchema);
-      this.print(normalizedData);
+      const normalizedData = normalize(originalData, this.postsSchema);
+      // this.print(normalizedData);
 
       this.io.sockets.emit('listarMensajes', normalizedData);
 
       socket.on('sendMensaje', async (data) => {
         // print(data)
-        let newData = denormalize(data.result, postsSchema, data.entities);
+        let newData = denormalize(data.result, this.postsSchema, data.entities);
         const newObject = newData.posts[0];
         const { author, fecha, text } = newObject;
         const otherObject = {
@@ -72,9 +73,16 @@ class Websocket {
           id: "mensajes",
           posts: result
         };
-        const normalizedData = normalize(originalData, postsSchema);
+        const normalizedData = normalize(originalData, this.postsSchema);
         this.io.sockets.emit('listarMensajes', normalizedData);
       })
+    });
+  }
+
+  listen() {
+    this.httpServer.listen(this.port, () => {
+      console.log(`Servidor corriendo en http://localhost:${this.port}`);
+      console.log(`PID WORKER ${process.pid}`);
     });
   }
 }

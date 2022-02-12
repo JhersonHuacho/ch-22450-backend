@@ -31,109 +31,88 @@ const listProductsHtml = ((data) => {
   tbody.appendChild(tr);
 });
 
-// const formLogin = document.querySelector('.login__form');
-// formLogin.addEventListener('submit', (event) => {
-//   event.preventDefault();
-//   console.log('formLogin')
-//   const inputLogin = document.querySelector('#login');
-//   const objLogin = {
-//     name: inputLogin.value
-//   }
-
-//   fetch('/api/login', {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json;charset=utf-8'
-//     },
-//     body: JSON.stringify(objLogin)
-//   })
-//     .then(response => response.json())
-//     .then(data => {
-//       console.log('formLogin - data => ', data);
-//     })
-// })
-
 const btnDesloguear = document.querySelector('#btnDesloguear');
-btnDesloguear.addEventListener('click', () => {
-  window.location = '/logout';
-})
-
-// const btnFailLogin = document.querySelector('.failLogin__button');
-// btnFailLogin.addEventListener('click', () => {
-//   window.location = '/login';
-// })
+if (btnDesloguear) {
+  btnDesloguear.addEventListener('click', () => {
+    window.location = '/logout';
+  })
+}
 
 socket.on('listarMensajes', (data) => {
   const contentMensajes = document.querySelector('.content-mensajes');
-  contentMensajes.innerHTML = '';
-  console.log('listarMensajes => data', data);
-  const denormalizadoData = normalizr.denormalize(
-    data.result,
-    postsSchema,
-    data.entities
-  )
-  if (data.length !== 0) {
-    data.entities.posts.mensajes.posts.forEach(idMensaje => {
-      const post = data.entities.post[idMensaje]
+  if (contentMensajes) {
+    contentMensajes.innerHTML = '';
+    console.log('listarMensajes => data', data);
+    const denormalizadoData = normalizr.denormalize(
+      data.result,
+      postsSchema,
+      data.entities
+    )
+    if (data.length !== 0) {
+      data.entities.posts.mensajes.posts.forEach(idMensaje => {
+        const post = data.entities.post[idMensaje]
 
-      console.log('post', post);
-      const p = document.createElement('p');
-      const spanEmail = document.createElement('span');
-      const spanFecha = document.createElement('span');
-      const spanMensaje = document.createElement('span');
-      spanEmail.innerText = `${post.author} `;
-      spanEmail.style.color = 'blue';
-      p.appendChild(spanEmail);
+        console.log('post', post);
+        const p = document.createElement('p');
+        const spanEmail = document.createElement('span');
+        const spanFecha = document.createElement('span');
+        const spanMensaje = document.createElement('span');
+        spanEmail.innerText = `${post.author} `;
+        spanEmail.style.color = 'blue';
+        p.appendChild(spanEmail);
 
-      spanFecha.innerText = `${post.fecha} `;
-      spanFecha.style.color = 'red';
-      p.appendChild(spanFecha);
+        spanFecha.innerText = `${post.fecha} `;
+        spanFecha.style.color = 'red';
+        p.appendChild(spanFecha);
 
-      spanMensaje.innerText = `: ${post.text}`;
-      spanMensaje.style.color = 'green';
-      p.appendChild(spanMensaje);
+        spanMensaje.innerText = `: ${post.text}`;
+        spanMensaje.style.color = 'green';
+        p.appendChild(spanMensaje);
 
-      contentMensajes.appendChild(p);
-    });
+        contentMensajes.appendChild(p);
+      });
 
-    const compresionSpan = document.querySelector('.compresion');
-    const desnormalizado = JSON.stringify(denormalizadoData).length;
-    const normalizado = JSON.stringify(data).length;
-    const resultado = Math.round((1 - (normalizado / desnormalizado)) * 100, 2)
-    compresionSpan.innerText = resultado.toString() + "%";
+      const compresionSpan = document.querySelector('.compresion');
+      const desnormalizado = JSON.stringify(denormalizadoData).length;
+      const normalizado = JSON.stringify(data).length;
+      const resultado = Math.round((1 - (normalizado / desnormalizado)) * 100, 2)
+      compresionSpan.innerText = resultado.toString() + "%";
+    }
   }
 });
 
 
 window.addEventListener('load', () => {
   const form = document.querySelector('.formulario');
-  form.addEventListener('submit', (event) => {
-    event.preventDefault();
-    const title = document.querySelector('#title');
-    const price = document.querySelector('#price');
-    const thumbnail = document.querySelector('#thumbnail');
+  if (form) {
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const title = document.querySelector('#title');
+      const price = document.querySelector('#price');
+      const thumbnail = document.querySelector('#thumbnail');
 
-    const objProduct = {
-      title: title.value,
-      price: price.value,
-      thumbnail: thumbnail.value
-    }
+      const objProduct = {
+        title: title.value,
+        price: price.value,
+        thumbnail: thumbnail.value
+      }
 
-    fetch('/api/productos', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8'
-      },
-      body: JSON.stringify(objProduct)
+      fetch('/api/productos', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(objProduct)
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log('data => ', data);
+          listProductsHtml(data);
+        });
+
+      title.value = '';
+      price.value = '';
+      thumbnail.value = '';
     })
-      .then(response => response.json())
-      .then(data => {
-        console.log('data => ', data);
-        listProductsHtml(data);
-      });
-
-    title.value = '';
-    price.value = '';
-    thumbnail.value = '';
-  })
+  }
 })

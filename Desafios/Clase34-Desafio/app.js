@@ -18,5 +18,6 @@ if (modoCluster && cluster.isMaster) {
   require('./config/logs/configLogs');
   // console.log(server.getApp());
   const webSocket = new Websocket(server.getApp());
-  server.listen();
+  // server.listen();
+  webSocket.listen();
 }
