@@ -13,7 +13,9 @@
     "server-forever": "forever start app.js",
     "server-forever-list": "forever list",
     "server-forever-stop": "forever stop",
-    "server-pm2": "pm2 start app.js"
+    "server-pm2": "pm2 start app.js",
+    "deploy": "git push heroku master",
+    "deploy:subfolder": "git subtree push --prefix Desafios/Clase34-Desafio heroku master"
   },
   "author": "",
   "license": "ISC",
