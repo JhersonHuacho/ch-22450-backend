@@ -103,8 +103,9 @@ class Server {
         passReqToCallback: true
       }, async (req, usuario, password, done) => {
         let users = await Usuario.find();
+
         const user = users.find(objUser => {
-          return objUser.usuario === usuario && objUser.password === password
+          return objUser.usuario === usuario
         })
 
         if (user) {

@@ -1,0 +1,9 @@
+Install nvm en Linux?
+https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-20-04-es
+
+
+Cuando tenemos varios proyectos, Cómo sabemos con que versión de node se uso en cada proyecto?
+
+----
+$ npm list
+$ npm list -g

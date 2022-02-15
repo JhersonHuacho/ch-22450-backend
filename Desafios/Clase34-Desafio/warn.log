@@ -66,3 +66,10 @@
 [2022-02-12T10:47:08.087] [WARN] loggerFile - url: /socket.io/socket.io.js - method: GET
 [2022-02-12T11:08:11.799] [WARN] loggerFile - url: /favicon.ico - method: GET
 [2022-02-12T11:09:57.466] [WARN] loggerFile - url: /favicon.ico - method: GET
+[2022-02-14T20:09:04.145] [WARN] loggerFile - url: / - method: GET
+[2022-02-14T20:09:04.541] [WARN] loggerFile - url: /images/icons/gear.png - method: GET
+[2022-02-14T20:09:05.440] [WARN] loggerFile - url: /favicon.ico - method: GET
+[2022-02-14T20:09:09.592] [WARN] loggerFile - url: /productis - method: GET
+[2022-02-14T20:09:09.949] [WARN] loggerFile - url: /images/icons/gear.png - method: GET
+[2022-02-14T20:14:46.769] [WARN] loggerFile - url: / - method: GET
+[2022-02-14T20:14:47.179] [WARN] loggerFile - url: /images/icons/gear.png - method: GET
