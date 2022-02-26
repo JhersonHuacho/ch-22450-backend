@@ -1,0 +1,28 @@
+<section class="login">
+    <div class="login__content">
+        <div class="login__title">Login de Usuario</div>
+        <form 
+            action="/api/login" 
+            method="post" 
+            class="login__form"
+        >
+            <div class="login__input">
+                <label for="usuario">Nombre:</label>
+                <input type="text" id="usuario" name="usuario" />
+            </div>
+            <div class="login__input">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" />
+            </div>
+            <div>
+                {{!-- <button type="submit" class="login__button">Enviar</button> --}}
+                <input type="submit" value="Enviar" class="login__button"/>
+            </div>
+        </form>
+        <hr/>
+        <a href="/auth/register" class="login__link-register">
+            <button class="login__button-register">Ir a Register</button>
+        </a>
+    </div>
+    
+</section>

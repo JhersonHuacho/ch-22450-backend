@@ -1,0 +1,17 @@
+[2022-02-02T23:06:44.331] [WARN] loggerFile - url: /api/productosNoEXISTE - method: GET
+[2022-02-02T23:09:44.018] [WARN] loggerFile - url: /api/productos - method: GET
+[2022-02-02T23:10:18.297] [WARN] loggerFile - url: /api/productos - method: GET
+[2022-02-02T23:11:48.161] [WARN] loggerFile - url: /api/productosNoEXISTE - method: GET
+[2022-02-02T23:12:42.419] [WARN] loggerFile - url: /api/productosNoEXISTE - method: GET
+[2022-02-03T13:46:12.646] [WARN] loggerFile - url: / - method: GET
+[2022-02-03T13:46:20.718] [WARN] loggerFile - url: /socket.io/socket.io.js - method: GET
+[2022-02-03T13:46:21.266] [WARN] loggerFile - url: /socket.io/socket.io.js - method: GET
+[2022-02-03T13:46:40.485] [WARN] loggerFile - url: /socket.io/socket.io.js - method: GET
+[2022-02-03T13:46:40.654] [WARN] loggerFile - url: /socket.io/socket.io.js - method: GET
+[2022-02-03T13:46:40.870] [WARN] loggerFile - url: /favicon.ico - method: GET
+[2022-02-09T20:33:01.911] [WARN] loggerFile - url: / - method: GET
+[2022-02-09T20:33:02.384] [WARN] loggerFile - url: /images/icons/gear.png - method: GET
+[2022-02-09T22:25:00.036] [WARN] loggerFile - url: / - method: GET
+[2022-02-09T22:25:00.515] [WARN] loggerFile - url: /images/icons/gear.png - method: GET
+[2022-02-09T22:25:01.516] [WARN] loggerFile - url: /favicon.ico - method: GET
+[2022-02-09T22:25:09.763] [WARN] loggerFile - url: /socket.io/socket.io.js - method: GET
