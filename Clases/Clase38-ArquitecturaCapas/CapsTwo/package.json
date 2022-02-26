@@ -1,5 +1,5 @@
 {
-  "name": "twlio_wsp",
+  "name": "capsone",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,6 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "twilio": "^3.74.0"
+    "express": "^4.17.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }
