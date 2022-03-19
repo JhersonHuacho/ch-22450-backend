@@ -1,0 +1,8 @@
+Pensar que arquitectura voy a tener.
+NodeJS al no tener una estructura definida.
+Las buenas practicas en NodeJS.
+Cada capa va tener una responsabilidad.
+
+
+Herramientas de monitoreo de aplicación (ScoutAPM):
+- ScoutAPM

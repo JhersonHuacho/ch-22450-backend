@@ -1,0 +1,20 @@
+GET http://localhost:8080/api/productos
+
+###
+
+GET http://localhost:3001/info
+
+###
+
+GET http://localhost:8080/api/productosNoEXISTE
+
+###
+
+POST http://localhost:8080/api/productos
+Content-Type: application/json
+
+{
+    "title": "Televisor",
+    "price": 50,
+    "thumbnail": "https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-256.png"
+}
