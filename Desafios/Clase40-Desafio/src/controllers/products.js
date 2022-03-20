@@ -1,5 +1,6 @@
 const knex = require('../config/knex/db');
-const { obtenerProductos, guardarProducto } = require('../services/productServices');
+//const { obtenerProductos, guardarProducto } = require('../services/productServices');
+const { ProductosApi } = require("../services/productServices");
 
 const getProductsKnex = (req, res) => {
   console.log('/productos');
@@ -60,7 +61,9 @@ const getProducts = async (req, res) => {
   const name = req.user.usuario;
   console.log('name ' + name);
 
-  const listProducts = await obtenerProductos();
+  const productoApi = new ProductosApi();
+  //const listProducts = await obtenerProductos();
+  const listProducts = await productoApi.getAll();
 
   const products = listProducts.map(product => {
     return {
@@ -94,8 +97,8 @@ const postProducts = async (req, res) => {
       price: req.body.price,
       thumbnail: req.body.thumbnail
     })
-
-    const saveProduct = await guardarProducto(newProduct);
+    const productoApi = new ProductosApi();
+    const saveProduct = await productoApi.add(newProduct);
     console.log("Se registro correctamente el producto");
     return saveProduct;
   } catch (error) {

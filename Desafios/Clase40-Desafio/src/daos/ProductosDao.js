@@ -1,14 +1,17 @@
-
-
+const Product = require('../models/Products');
 class ProductosDaos {
   async getAll() {
-    throw "Falta implementar el metodo GetAll"
+    let products = await Product.find();
+    return products;
+    //throw "Falta implementar el metodo GetAll"
   }
   async getById(id) {
     throw "Falta implementar el metodo GetById"
   }
   async add(data) {
-    throw "Falta implementar el metodo add"
+    const saveProduct = await newProduct.save();
+    return saveProduct;
+    //throw "Falta implementar el metodo add"
   }
   async deleteById(id) {
     throw "Falta implementar el metodo deleteById"
@@ -25,4 +28,4 @@ class ProductosDaos {
 }
 
 
-module.exports = { ProductDaos }
+module.exports = { ProductosDaos }
