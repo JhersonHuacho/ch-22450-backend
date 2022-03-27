@@ -48,8 +48,30 @@ const getProductos = async (req, res) => {
   res.json(products);
 }
 
+const postProducts = async (req, res) => {
+  try {
+    // console.log('req => ', req);
+    const newProduct = new Product({
+      title: req.body.title,
+      price: req.body.price,
+      thumbnail: req.body.thumbnail
+    })
+
+    const saveProduct = await guardarProducto(newProduct);
+    console.log("Se registro correctamente el producto");
+    //return saveProduct;
+    res.status(201).json({
+      message: "Producto guardao correctamente",
+      data: saveProduct
+    })
+  } catch (error) {
+    console.log('Error al guardar => ', error);
+  }
+}
+
 module.exports = {
   getProductTest,
   getRandom,
-  getProductos
+  getProductos,
+  postProducts
 }
